@@ -54,7 +54,9 @@
     .cover .eyebrow { font-size: 10px; letter-spacing: 3px; margin-bottom: 18px; }
     .cover h1 { font-size: 36px; letter-spacing: 0.5px; line-height: 1.1; margin-bottom: 16px; }
     .cover .version { font-size: 9px; letter-spacing: 2.5px; margin-bottom: 18px; }
+    .cover .byline { font-size: 10px; letter-spacing: 2px; margin-bottom: 16px; }
     .cover .subtitle { font-size: 17px; margin-bottom: 18px; line-height: 1.45; }
+    br.desktop-only { display: none; }
     .cover .pills { gap: 6px; margin-bottom: 16px; }
     .cover .promise { font-size: 15px; }
 
@@ -162,6 +164,15 @@
     border: 1px solid var(--honey-deep);
     padding: 5px 16px;
     border-radius: 100px;
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .cover .byline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cacao-soft);
     margin-bottom: 22px;
     font-weight: 500;
   }
@@ -878,7 +889,8 @@
   <div class="eyebrow">Your AI Setup Guide</div>
   <h1>Setting Up<br>Claude for<br>Your Business</h1>
   <div class="version">Version 1.0</div>
-  <div class="subtitle">I spent 50+ hours figuring out the best way to set up AI<br>for my business. This guide is the shortcut.</div>
+  <div class="byline">By Marina Soicher</div>
+  <div class="subtitle">I spent 50+ hours figuring out the best way to set up AI<br class="desktop-only">for my business. This guide is the shortcut.</div>
   <div class="pills">
     <span class="pill sky">Claude Code</span>
   </div>
