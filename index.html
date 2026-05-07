@@ -46,6 +46,78 @@
     .step, .tool-card, .file-card, .callout, .code-block, .phase, .level-card { page-break-inside: avoid; }
   }
 
+  @media (max-width: 700px) {
+    body { padding: 24px 18px 60px; }
+
+    /* Cover */
+    .cover { padding: 24px 0 16px; margin-bottom: 16px; }
+    .cover .eyebrow { font-size: 10px; letter-spacing: 3px; margin-bottom: 18px; }
+    .cover h1 { font-size: 36px; letter-spacing: 0.5px; line-height: 1.1; margin-bottom: 16px; }
+    .cover .version { font-size: 9px; letter-spacing: 2.5px; margin-bottom: 18px; }
+    .cover .subtitle { font-size: 17px; margin-bottom: 18px; line-height: 1.45; }
+    .cover .pills { gap: 6px; margin-bottom: 16px; }
+    .cover .promise { font-size: 15px; }
+
+    /* Device note */
+    .device-note { padding: 14px 16px; flex-direction: column; gap: 8px; }
+    .device-note-icon { font-size: 22px; }
+    .device-note-body strong { font-size: 16px; }
+
+    /* TOC */
+    .toc { padding: 22px 22px; margin-bottom: 36px; }
+    .toc ol { columns: 1; column-gap: 0; }
+    .toc li { font-size: 15px; gap: 10px; margin-bottom: 8px; }
+
+    /* Typography */
+    h2 { font-size: 10px; letter-spacing: 3px; margin: 36px 0 14px; }
+    h3 { font-size: 22px; margin: 22px 0 8px; }
+    h4 { font-size: 11.5px; }
+    p { font-size: 15.5px; }
+
+    /* Lead */
+    .lead { font-size: 17px; padding-left: 16px; }
+
+    /* Grids that should stack on mobile */
+    .tool-grid { grid-template-columns: 1fr; gap: 12px; }
+    .level-card { grid-template-columns: 1fr; gap: 10px; }
+    .legend { grid-template-columns: 1fr; gap: 12px; }
+
+    /* Cards */
+    .tool-card { padding: 18px 18px; }
+    .tool-card .name { font-size: 24px; }
+    .file-card { padding: 18px 18px; }
+    .file-card .file-purpose { font-size: 20px; }
+
+    /* Phase blocks */
+    .phase { padding: 16px 18px; }
+    .phase-header { gap: 10px; margin-bottom: 12px; }
+    .phase-title { font-size: 18px; }
+
+    /* Steps */
+    .step { gap: 12px; margin-bottom: 16px; }
+    .step-num { width: 32px; height: 32px; font-size: 13px; }
+    .step-body .action { padding: 10px 14px; font-size: 12px; }
+
+    /* Callouts */
+    .callout { padding: 14px 16px; margin: 16px 0; }
+    .callout p { font-size: 15px; }
+
+    /* Folder tree & code blocks */
+    .folder-tree { padding: 16px 18px; font-size: 12px; line-height: 1.8; }
+    .code-block { padding: 14px 16px; font-size: 11px; }
+    .code-block.compact { padding: 12px 14px; font-size: 11px; }
+
+    /* Tables: tighten padding, smaller font */
+    table { font-size: 14px; }
+    th { padding: 10px 12px; font-size: 9.5px; letter-spacing: 1.2px; }
+    td { padding: 11px 12px; line-height: 1.5; }
+
+    /* Next-step card */
+    .next-step { padding: 24px 22px; margin: 28px 0; }
+    .next-step h3 { font-size: 26px; margin-bottom: 12px; }
+    .next-step p { font-size: 15px; line-height: 1.65; }
+  }
+
   /* COVER */
   .cover {
     text-align: center;
