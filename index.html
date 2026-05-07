@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setting Up Claude for Your Business / Foundation Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pearl: #FAF8F5;
+    --pearl-deep: #F2EDE5;
+    --pearl-warm: #ECE4D4;
+    --cacao: #2E1B14;
+    --cacao-soft: #4A3329;
+    --cacao-muted: #7A6359;
+    --espresso: #180D00;
+    --sky: #ABCDDD;
+    --sky-light: #DCE9F0;
+    --sky-deep: #7FA8BD;
+    --honey: #CEA435;
+    --honey-light: #F2E5BE;
+    --honey-deep: #A8851F;
+    --rule: #DDD2BF;
+  }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--cacao);
+    background: var(--pearl);
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 64px 80px;
+  }
+
+  @media print {
+    body { padding: 36px; font-size: 13px; background: #fff; }
+    .no-print { display: none; }
+    h2 { page-break-before: always; }
+    .cover, h2:first-of-type { page-break-before: avoid; }
+    .step, .tool-card, .file-card, .callout, .code-block, .phase, .level-card { page-break-inside: avoid; }
+  }
+
+  /* COVER */
+  .cover {
+    text-align: center;
+    padding: 44px 0 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .cover::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: var(--sky-deep);
+    margin: 16px auto 0;
+  }
+  .cover .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--honey-deep);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .cover h1 {
+    font-family: 'Forum', Georgia, serif;
+    font-size: 58px;
+    font-weight: 400;
+    color: var(--cacao);
+    line-height: 1.05;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .cover .version {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--honey-deep);
+    border: 1px solid var(--honey-deep);
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .cover .subtitle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    color: var(--cacao-soft);
+    margin-bottom: 24px;
+    font-style: italic;
+    font-weight: 300;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+  .cover .pills {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .pill {
+    background: var(--cacao);
+    color: var(--pearl);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+  .pill.sky { background: var(--sky-deep); }
+  .pill.outline {
+    background: transparent;
+    border: 1px solid var(--cacao);
+    color: var(--cacao);
+  }
+  .cover .promise {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    color: var(--cacao-soft);
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* TOC */
+  .device-note {
+    background: var(--honey-light);
+    border: 1px solid var(--honey);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 0 0 28px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .device-note-icon {
+    font-size: 24px;
+    line-height: 1;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .device-note-body strong {
+    display: block;
+    font-family: 'Forum', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--cacao);
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+  .device-note-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--cacao-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+  .toc {
+    background: #FFFFFF;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px 36px;
+    margin: 0 0 48px;
+    position: relative;
+  }
+  .toc::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 24px;
+    width: 60px;
+    height: 3px;
+    background: var(--sky);
+  }
+  .toc h3 {
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 11px;
+    color: var(--sky-deep);
+    text-transform: uppercase;
+    letter-spacing: 3.5px;
+    font-weight: 600;
+  }
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: 36px;
+  }
+  .toc li {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    color: var(--cacao);
+    margin-bottom: 6px;
+    line-height: 1.4;
+    display: flex;
+    gap: 14px;
+    break-inside: avoid;
+  }
+  .toc li .num {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--honey-deep);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 1px;
+    min-width: 26px;
+    padding-top: 3px;
+  }
+  .toc li .later {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    background: var(--sky-light);
+    padding: 1px 7px;
+    border-radius: 100px;
+    margin-left: 6px;
+    font-weight: 500;
+    align-self: center;
+  }
+
+  /* TYPOGRAPHY */
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    margin: 48px 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+    font-weight: 600;
+  }
+  h3 {
+    font-family: 'Forum', Georgia, serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--cacao);
+    margin: 28px 0 10px;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+  }
+  h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cacao);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 18px 0 8px;
+  }
+  p {
+    margin-bottom: 12px;
+    color: var(--cacao);
+    font-size: 16px;
+  }
+  ul, ol { padding-left: 24px; margin-bottom: 14px; }
+  li {
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--cacao);
+  }
+  strong { color: var(--cacao); font-weight: 600; }
+  em { color: var(--cacao-soft); font-style: italic; }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    background: var(--pearl-deep);
+    padding: 2px 8px;
+    border-radius: 3px;
+    color: var(--honey-deep);
+    font-weight: 500;
+  }
+
+  /* LEAD */
+  .lead {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--cacao);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 22px;
+    padding-left: 22px;
+    border-left: 2px solid var(--sky);
+  }
+
+  /* TOOL CARDS */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0 28px;
+  }
+  .tool-card {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 22px 22px;
+    background: #FFFFFF;
+    position: relative;
+  }
+  .tool-card.primary {
+    border-color: var(--sky);
+    background: var(--sky-light);
+  }
+  .tool-card .tool-mark {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .tool-card .name {
+    font-family: 'Forum', serif;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--cacao);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .tool-card .tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--honey-deep);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .tool-card p {
+    font-size: 15px;
+    color: var(--cacao-soft);
+    line-height: 1.65;
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* FILE CARDS */
+  .file-card {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 22px 26px;
+    background: #FFFFFF;
+    margin: 16px 0;
+    position: relative;
+  }
+  .file-card.optional {
+    background: var(--pearl-deep);
+    border-style: dashed;
+  }
+  .file-card .file-name {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--honey-deep);
+    background: var(--pearl-deep);
+    padding: 4px 12px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .file-card.optional .file-name {
+    background: #FFFFFF;
+  }
+  .file-card .badge-optional {
+    display: inline-block;
+    background: var(--sky-light);
+    color: var(--sky-deep);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-left: 8px;
+    font-weight: 600;
+    vertical-align: 3px;
+  }
+  .file-card .file-purpose {
+    font-family: 'Forum', Georgia, serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--cacao);
+    margin-bottom: 10px;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+  }
+  .file-card .file-desc {
+    font-size: 15px;
+    color: var(--cacao-soft);
+    margin-bottom: 16px;
+    line-height: 1.65;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .file-card .file-meta {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    color: var(--honey-deep);
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    font-weight: 600;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* STEPS */
+  .steps { margin: 18px 0; }
+  .step {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--cacao);
+    color: var(--pearl);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .step-num.sky { background: var(--sky-deep); }
+  .step-num.honey { background: var(--honey); }
+  .step-num.outline {
+    background: var(--pearl);
+    color: var(--cacao);
+    border: 1.5px solid var(--cacao);
+  }
+  .step-body { flex: 1; }
+  .step-body h4 { margin-top: 0; margin-bottom: 6px; }
+  .step-body p { margin-bottom: 8px; font-size: 15px; }
+  .step-body .action {
+    background: var(--sky-light);
+    border-left: 2px solid var(--sky-deep);
+    padding: 12px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12.5px;
+    color: var(--cacao-soft);
+    border-radius: 0 4px 4px 0;
+    margin-top: 10px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .step-body .action strong {
+    display: block;
+    font-size: 9.5px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--sky-deep);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  /* CALLOUTS */
+  .callout {
+    border-left: 2px solid var(--sky-deep);
+    background: var(--sky-light);
+    padding: 18px 22px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout.honey {
+    border-left-color: var(--honey-deep);
+    background: var(--honey-light);
+  }
+  .callout.cacao {
+    border-left-color: var(--cacao);
+    background: var(--pearl-deep);
+  }
+  .callout > strong:first-child {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--sky-deep);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .callout.honey > strong:first-child { color: var(--honey-deep); }
+  .callout.cacao > strong:first-child { color: var(--cacao); }
+  .callout p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .callout p + p { margin-top: 10px; }
+
+  /* LEVEL CARD - for beginner vs seasoned routing */
+  .level-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .level-box {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 18px 20px;
+    background: #FFFFFF;
+  }
+  .level-box.beginner { border-left: 3px solid var(--sky-deep); }
+  .level-box.seasoned { border-left: 3px solid var(--honey-deep); }
+  .level-box .level-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .level-box.beginner .level-label { color: var(--sky-deep); }
+  .level-box.seasoned .level-label { color: var(--honey-deep); }
+  .level-box h4 {
+    font-family: 'Forum', serif;
+    font-size: 18px;
+    margin: 0 0 10px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0.3px;
+  }
+  .level-box p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--cacao-soft);
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* PHASE BLOCKS */
+  .phase {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 14px 0;
+    background: #FFFFFF;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .phase-badge {
+    background: var(--sky-deep);
+    color: var(--pearl);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 13px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .phase-badge.honey { background: var(--honey); color: var(--cacao); }
+  .phase-title {
+    font-family: 'Forum', serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--cacao);
+    letter-spacing: 0.3px;
+  }
+  .phase ul { margin: 0; }
+  .phase li { font-size: 15px; }
+
+  /* FOLDER TREE */
+  .folder-tree {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    background: var(--espresso);
+    color: #ECE4D4;
+    padding: 22px 26px;
+    border-radius: 4px;
+    margin: 16px 0;
+    line-height: 1.9;
+  }
+  .folder-tree .folder { color: var(--honey); font-weight: 600; }
+  .folder-tree .file { color: var(--sky); }
+  .folder-tree .comment { color: #8B7E70; font-style: italic; }
+
+  /* CODE BLOCKS */
+  .code-block {
+    background: var(--espresso);
+    color: #ECE4D4;
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 14px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 11.5px;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+  .code-block .label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: var(--honey);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .code-block.compact { font-size: 12px; padding: 14px 20px; }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+  }
+  th {
+    background: var(--cacao);
+    color: var(--pearl);
+    padding: 13px 18px;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.6;
+    background: #FFFFFF;
+  }
+  tr:nth-child(even) td { background: var(--pearl-deep); }
+
+  /* DIVIDER */
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 36px 0;
+  }
+  .ornament {
+    text-align: center;
+    margin: 40px 0;
+    color: var(--sky-deep);
+    font-family: 'Forum', serif;
+    font-size: 22px;
+    letter-spacing: 14px;
+  }
+
+  /* NEXT-STEP CARD */
+  .next-step {
+    background: var(--espresso);
+    color: var(--pearl);
+    border-radius: 4px;
+    padding: 32px 36px;
+    margin: 36px 0;
+    position: relative;
+  }
+  .next-step .label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--honey);
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .next-step h3 {
+    font-family: 'Forum', serif;
+    color: var(--pearl);
+    font-size: 34px;
+    margin: 0 0 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.15;
+  }
+  .next-step p {
+    color: #DDD2BF;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .next-step ul { padding-left: 24px; }
+  .next-step li {
+    color: #DDD2BF;
+    font-size: 15px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .next-step strong { color: var(--pearl); }
+
+  /* SCREENSHOT FRAME & LEGEND */
+  .screenshot-frame {
+    background: #FFFFFF;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 14px;
+    margin: 22px 0 10px;
+    box-shadow: 0 2px 16px rgba(46, 27, 20, 0.06);
+    text-align: center;
+  }
+  .screenshot-frame img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+  }
+  .legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0 24px;
+  }
+  .legend-item {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 14px 16px;
+    background: #FFFFFF;
+  }
+  .legend-item .legend-label {
+    font-family: 'Forum', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--cacao);
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--rule);
+    letter-spacing: 0.4px;
+  }
+  .legend-item .legend-label.chat { border-bottom-color: var(--honey); }
+  .legend-item .legend-label.cowork { border-bottom-color: var(--sky-deep); }
+  .legend-item .legend-label.code { border-bottom-color: var(--cacao); }
+  .legend-item p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--cacao-soft);
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .footer-logo {
+    margin-bottom: 8px;
+  }
+  .footer-logo img {
+    width: 80px;
+    height: auto;
+    display: inline-block;
+  }
+  .footer-meta {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--cacao-muted);
+    margin-top: 10px;
+  }
+  .footer-meta strong { color: var(--sky-deep); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="eyebrow">Your AI Setup Guide</div>
+  <h1>Setting Up<br>Claude for<br>Your Business</h1>
+  <div class="version">Version 1.0</div>
+  <div class="subtitle">I spent 50+ hours figuring out the best way to set up AI<br>for my business. This guide is the shortcut.</div>
+  <div class="pills">
+    <span class="pill sky">Claude Code</span>
+  </div>
+</div>
+
+<!-- DEVICE NOTE -->
+<div class="device-note">
+  <div class="device-note-icon">&#x1F4BB;</div>
+  <div class="device-note-body">
+    <strong>Read this on your phone if you want, but you'll need your computer for setup.</strong>
+    <p>Everything in this guide happens on your laptop or desktop. Your phone is great for quick AI conversations on the go, but your real workspace lives on your computer.</p>
+  </div>
+</div>
+
+<!-- TIME EXPECTATION -->
+<div class="callout">
+  <strong>How long does this take? About one hour.</strong>
+  <p>The guide looks long because it includes prompts you can copy and paste directly. If you already have clarity on your brand, voice, and business, you'll fly through it. If the foundation section takes you longer because you're really thinking through your answers, that's a good thing. That thinking is what makes Claude work well for you.</p>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>What's Inside</h3>
+  <ol>
+    <li><span class="num">01</span> How this works</li>
+    <li><span class="num">02</span> Account setup</li>
+    <li><span class="num">03</span> The folder system</li>
+    <li><span class="num">04</span> Where are you coming from?</li>
+    <li><span class="num">05</span> Plan mode (your safety net)</li>
+    <li><span class="num">06</span> Your four core files</li>
+    <li><span class="num">07</span> Your CLAUDE.md</li>
+    <li><span class="num">08</span> Verify and daily workflow</li>
+    <li><span class="num">09</span> Quick reference and troubleshooting</li>
+    <li><span class="num">10</span> Bring in existing assets (optional)</li>
+    <li><span class="num">11</span> Save your tokens (optional)</li>
+    <li><span class="num">12</span> What's next: building automations</li>
+  </ol>
+</div>
+
+
+<!-- 01 -->
+<h2>01 / How This Works</h2>
+
+<p class="lead">The point of this system is that you stop re-explaining yourself. You build the foundation once. Every conversation after that starts with everything Claude needs to know about you, your client, and your business already loaded.</p>
+
+<h3>What is Claude?</h3>
+
+<p>Claude is an AI made by Anthropic. You talk to it like a person, and it helps you think, write, plan, and build. On its own, it's good but generic. It doesn't know your voice, your audience, or your business.</p>
+
+<p>That changes when you give it a foundation. Four small files that tell Claude who you are, who you serve, what your business does, and how you want it to write. Once those files exist, Claude stops sounding like a robot and starts sounding like you.</p>
+
+<h3>The different options within Claude and what I recommend</h3>
+
+<p>If you've poked around online, you've probably seen Claude in a few different forms. Here's what's out there, in plain English:</p>
+
+<ul style="margin: 0 0 16px 24px;">
+  <li><strong>Claude.ai</strong>: the chat in your browser. Same as ChatGPT in shape. Great on your phone for quick questions or voice notes on the go.</li>
+  <li><strong>Claude Cowork</strong>: a desktop app for working with Claude across folders of files (writing, strategy, content). I spent a lot of time here, and I'm transitioning to only using Code from here on.</li>
+  <li><strong>Claude Code</strong>: an extension that lives inside a free app called VS Code. This is our main spot where we're living moving forward. Claude can read your files, create new ones, edit existing ones, and run things for you, all while you watch.</li>
+</ul>
+
+<p>You need Claude Code. That's what this guide will set you up with.</p>
+
+<h3>Why I built this guide</h3>
+
+<p>I'm going to be honest with you. I spent over 50 hours in the last two weeks trying different AI tools, different setups, and different approaches. I went down rabbit holes. I set up systems I didn't need. I followed frameworks that were more complicated than necessary.</p>
+
+<p>What I landed on was much simpler than where I started. The foundation files are essential. They're what make Claude genuinely useful for your specific business. But the path to get there doesn't need to be 50 hours. It needs to be about one.</p>
+
+<p>This guide is the shortcut I wish I'd had.</p>
+
+<div class="callout honey">
+  <strong>Worried AI will make you less authentic?</strong>
+  <p>I had the same thought before I started. My experience has been the opposite. Claude learned how I think and how I talk, and it handles the stuff that used to eat up my time. Because of that, I'm spending more of my energy on mentorship calls, creating content from my real life experiences, and learning new skills. I've never felt more in my zone of genius. AI didn't replace my voice. It gave me the space to actually use it.</p>
+</div>
+
+<div class="callout">
+  <strong>Inspired by Ruben Hassid</strong>
+  <p>The thinking underneath this guide draws from Ruben Hassid's writing on setting up Claude for non-developers. If you want more depth, his Claude Code walkthrough is at <a href="https://ruben.substack.com/p/claude-code" style="color: var(--sky-deep); font-weight: 600;">ruben.substack.com/p/claude-code</a>, and his structured Claude guides (beginner to expert, all free) live at <a href="https://claude101.com" style="color: var(--sky-deep); font-weight: 600;">claude101.com</a>.</p>
+</div>
+
+<h3>What is VS Code, and where does Claude live in it?</h3>
+
+<p>You'll be working inside two tools that snap together: VS Code (your workspace) and Claude Code (an extension that adds Claude to it).</p>
+
+<p><strong>VS Code</strong> is a free app from Microsoft. Think of it as your workspace: a window with your files and folders on the left, and a main editing area in the middle. Most software developers use it daily. You will not be using it like a developer. You will use it as a clean, organized place where your files live.</p>
+
+<p><strong>Claude Code</strong> is a free extension you install inside VS Code. Once installed, it adds a chat panel where you talk to Claude. Claude can read every file in your workspace, create new files, edit existing ones, and run things for you, all while you watch.</p>
+
+<p>Two products. One window. You don't need to switch between apps or modes. Everything happens here.</p>
+
+<div class="callout cacao">
+  <strong>This is not coding</strong>
+  <p>If the word "code" makes you nervous, let me reframe it. You will never write code. You describe what you want in plain English. Claude builds it. You review it and say yes or no. It's the same skill as reviewing a team member's work.</p>
+  <p>The people who are best at this aren't programmers. They're people who can describe what they want clearly and give good feedback. If you can manage a team, you can do this.</p>
+</div>
+
+
+
+<!-- 02 -->
+<h2>02 / Account Setup</h2>
+
+<p>Fifteen minutes. Do these three steps on your computer before anything else.</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Create your Claude account</h4>
+      <p>Go to <a href="https://claude.ai/referral/T9b4RQafXw?s=cowork&v=apps" style="color: var(--sky-deep); font-weight: 600;">claude.ai</a> and sign up. Use the same email you use for Google so future integrations stay seamless. Upgrade to Pro ($20/month) for full access. Pro includes Claude Code in VS Code at no extra cost.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Download VS Code</h4>
+      <p>VS Code is your workspace. It's a free app from Microsoft.</p>
+      <div class="action">
+        <strong>Where to get it</strong>
+        Go to <a href="https://code.visualstudio.com/download" style="color: var(--sky-deep); font-weight: 600;">code.visualstudio.com/download</a> and install it. If you're on a Mac and the page asks you to choose between Apple Silicon and Intel, pick <strong>Apple Silicon</strong> (that's the right one if your Mac was made in 2021 or later). Not sure? Click the Apple menu at the top left of your screen, then "About This Mac." If it says M1, M2, M3, or M4, you want Apple Silicon.
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Install the Claude Code extension</h4>
+      <p>This is the piece that adds Claude to VS Code.</p>
+      <div class="action">
+        <strong>Inside VS Code</strong>
+        Click the <strong>Extensions</strong> icon in the left sidebar (it looks like four squares with one detached). In the search bar at the top, type <strong>Claude Code</strong>. The official extension by Anthropic should be the first result. Click <strong>Install</strong>. When prompted, sign in with the same Claude account you created in Step 1.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="callout">
+  <strong>Want Claude on your phone too?</strong>
+  <p>Once your Claude account is set up, download the Claude app on iOS or Android. It's great for quick questions on the go, voice-dictating thoughts while you're out with the kids, or casual conversations away from your desk. Your real workspace lives on your computer in VS Code, but the phone app is a handy companion.</p>
+</div>
+
+
+<!-- 03 -->
+<h2>03 / The Folder System</h2>
+
+<p class="lead">One main folder. A few subfolders inside. That's your entire file structure. The folder system is what makes Claude consistent across every conversation, because Claude can see exactly where everything lives.</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Create your workspace folder</h4>
+      <p>On your computer, create one main folder called <strong>Claude</strong>. Put it somewhere local like your Desktop or Documents folder. Inside, create two subfolders.</p>
+    </div>
+  </div>
+</div>
+
+<div class="folder-tree">
+  <span class="folder">&#x1F4C1; Claude</span><br>
+  &nbsp;&nbsp;<span class="folder">&#x1F4C1; ABOUT ME</span>      <span class="comment">&larr; your four foundation files (built in Section 06)</span><br>
+  &nbsp;&nbsp;<span class="folder">&#x1F4C1; PROJECTS</span>      <span class="comment">&larr; active workstreams, each in its own folder</span>
+</div>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Open your folder in VS Code</h4>
+      <p>In VS Code, go to <strong>File &rarr; Open Folder</strong> and select your Claude folder. You should see your ABOUT ME and PROJECTS folders in the file tree on the left side of the screen. This is your home base.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Finding your way around</h3>
+
+<p>VS Code can look overwhelming the first time you open it. There's more visible chrome than most apps you've used: icon strips, panels, menus. Here's what you're actually looking at, and what you can ignore.</p>
+
+<div class="screenshot-frame">
+  <img src="vscode-interface.png" alt="VS Code interface with numbered callouts showing the activity bar, file tree, editor area, Claude Code chat panel, and terminal">
+</div>
+
+<p>The numbers in the image match this breakdown:</p>
+
+<table>
+  <tr><th>What you see</th><th>What it does</th><th>Do you need it now?</th></tr>
+  <tr>
+    <td><strong>Activity bar (far left, vertical icons)</strong></td>
+    <td>The strip of icons on the very left edge. The top one (looks like papers stacked) shows your file tree. The Extensions icon (four squares) is where you installed Claude Code. Most other icons can be ignored at first.</td>
+    <td>Just the file tree icon. Ignore the rest for now.</td>
+  </tr>
+  <tr>
+    <td><strong>File tree (next to the activity bar)</strong></td>
+    <td>Shows all your folders and files. Click any file to open and read it. This is where your ABOUT ME folder, PROJECTS, and CLAUDE.md live.</td>
+    <td>Yes. This is your home base.</td>
+  </tr>
+  <tr>
+    <td><strong>Editor (center)</strong></td>
+    <td>This is where files open when you click them. Useful for reading and editing files directly. Claude can do most editing for you, so you can mostly leave this alone at first.</td>
+    <td>Not yet. You'll glance at it as Claude makes changes.</td>
+  </tr>
+  <tr>
+    <td><strong>Claude Code panel (right side or bottom)</strong></td>
+    <td>Where you talk to Claude. Type your message, hit enter. Claude can read your files, create new ones, and build things from here.</td>
+    <td>Yes. This is where all the work happens.</td>
+  </tr>
+  <tr>
+    <td><strong>Everything else</strong></td>
+    <td>Status bar, search, source control, debug. These are for more advanced use.</td>
+    <td>No. Ignore it all for now. You'll discover these naturally as you need them.</td>
+  </tr>
+</table>
+
+<div class="callout cacao">
+  <strong>It felt overwhelming for me too</strong>
+  <p>When I first opened VS Code, I didn't know where to click. There were a lot more icons and panels than I expected. I spent the first session just talking to Claude about my setup and exploring. Within about 20 minutes, the two panels that matter (file tree plus Claude chat) felt natural. Everything else faded into the background. Give yourself that same grace.</p>
+</div>
+
+<div class="callout">
+  <strong>About the terminal panel</strong>
+  <p>If you've heard people talk about the terminal, it's a panel at the bottom of VS Code. You can open it any time via <strong>View &rarr; Terminal</strong> (or close it the same way). Claude uses it on your behalf when it needs to run things. You don't need to worry about it.</p>
+</div>
+
+<!-- 04 -->
+<h2>04 / Where Are You Coming From?</h2>
+
+<p class="lead">Your path into the foundation work depends on where you're coming from. Pick whichever card fits you.</p>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-badge">Starting fresh</span>
+    <span class="phase-title">New to AI, or you've never used ChatGPT or Claude in any meaningful way</span>
+  </div>
+  <p style="font-size: 15px; margin: 0;">You're in the right place. The cards below are for people bringing existing AI history with them, so you can skip them entirely. Read Section 05 next (a quick safety habit), then go straight to Section 06 to build your four core files. Block 30 to 45 minutes for the four files.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-badge honey">From ChatGPT</span>
+    <span class="phase-title">You've invested time training ChatGPT</span>
+  </div>
+  <p style="font-size: 15px; margin: 0 0 10px;">Don't lose that work. Open ChatGPT and run the four extraction prompts in the box below. Copy the responses, save them in one document, and paste them into Claude Code (in VS Code) when Claude starts interviewing you. Tell Claude: <em>"Here's context from my time using ChatGPT. Use this to draft my foundation files. Only ask me about gaps you can't fill from this material."</em></p>
+</div>
+
+<div class="code-block compact"><span class="label">Run these in ChatGPT first, then bring the responses here</span>PROMPT 1: Look back across our conversations and tell me what you've learned about me as a person and as a business owner. Cover my role, how I work, what I value, patterns in how I write, and what I ask for help with most. Give me a condensed summary.
+
+PROMPT 2: Summarize what you know about my business. What I sell, who I serve, my goals, platforms, what I'm working on now, and what I'm intentionally not chasing. Make it scannable.
+
+PROMPT 3: Summarize what you know about my ideal client. Demographics, what they want, what they fear, the language they respond to, and their awareness level.
+
+PROMPT 4: Pull out writing samples you've created for me that I responded to most positively. Tell me the voice qualities, sentence patterns, words I gravitate toward, and patterns I've asked you to avoid. Be specific.</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-badge">From Claude Chat</span>
+    <span class="phase-title">You've been using claude.ai</span>
+  </div>
+  <p style="font-size: 15px; margin: 0;">Claude chat remembers across conversations. Open one fresh thread and run the same four extraction prompts above. Everything it knows about you will come through in a single session. Bring those responses into Claude Code in VS Code.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-badge honey">From Claude Cowork (with foundation files)</span>
+    <span class="phase-title">You already built your ABOUT ME files in Cowork</span>
+  </div>
+  <p style="font-size: 15px; margin: 0;">Copy your existing ABOUT ME files directly into your new Claude/ABOUT ME folder. You can skip Section 06 entirely. Move on to Section 07.</p>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <span class="phase-badge honey">From Claude Cowork (no foundation files yet)</span>
+    <span class="phase-title">You used Cowork but never built the four files</span>
+  </div>
+  <p style="font-size: 15px; margin: 0;">Open Claude Cowork and run the same four extraction prompts above (the ones in the ChatGPT card). Cowork will summarize everything it knows about you in one session. Bring those responses into Claude Code in VS Code.</p>
+</div>
+
+
+<!-- 05 -->
+<h2>05 / Plan Mode (Your Safety Net)</h2>
+
+<p class="lead">Before you do anything else in Claude Code, learn this one habit. It's the single most important section in this guide for non-developers.</p>
+
+<p>Plan Mode works like this: you describe what you want, Claude writes a plan, you read it and approve it. Only then does Claude build anything. <strong>Nothing happens without your approval.</strong></p>
+
+<p>You're not handing the keys over to AI. You're reviewing work before it ships, the same way you'd review a team member's draft before sending it out.</p>
+
+<div class="callout honey">
+  <strong>Plan Mode is your safety net</strong>
+  <p>If you're nervous about AI doing something unexpected, Plan Mode is the answer. Claude will always show you what it's about to do first. If something doesn't look right, say "change this part" or "stop, let's rethink." You're the boss. Claude is the builder who checks with you before every move.</p>
+</div>
+
+<h3>How you actually interact with Claude on a plan</h3>
+
+<p>Once Claude shows you a plan, you have a few ways to respond. You don't have to be precious about it. Pick whichever feels easier in the moment:</p>
+
+<ul style="margin: 0 0 16px 24px;">
+  <li><strong>Highlight and comment.</strong> Just like leaving a comment in a Google Doc, you can select any line in the plan and add a note ("change this part to X" or "this assumes Y, but Z is true"). Claude reads the comment and revises that part of the plan. Use this when one specific section is off and the rest looks right.</li>
+  <li><strong>Reply in chat.</strong> Type back in plain English: "looks good, but skip step 3" or "yes do that, but also add a step for X." Best for bigger changes or when you want to think out loud.</li>
+  <li><strong>Use the Accept and Reject buttons.</strong> When Claude is about to make a change to a file, you'll see Accept and Reject buttons appear (usually on the right side of the editor or inside the chat panel). Click Accept to let the change land. Click Reject to throw it out. You can do this one change at a time or all at once.</li>
+</ul>
+
+<p>None of this is one-shot. You'll usually go back and forth a few times before the plan is right, and that's the point. The back and forth is the work.</p>
+
+<p>You'll turn Plan Mode on at the very start of the next section, when you sit down to build your four core files. The exact keys are right there in the prep block.</p>
+
+
+<!-- 06 -->
+<h2>06 / Your Four Core Files</h2>
+
+<p class="lead">These four files are the foundation. They live in your ABOUT ME folder. Claude reads all four before every task you give it. This is the single most important part of the entire setup.</p>
+
+<div class="callout honey">
+  <strong>Optional: speak your answers instead of typing</strong>
+  <p>The four prompts below interview you in detail. Most of us type at about 60 words per minute. We speak at 150. Speaking your answers gets you through faster, and your ideas come out fuller, more like you.</p>
+  <p><strong>Wispr Flow</strong> is a voice-to-text tool that runs in the background on your computer. Hold a key, talk, release. Your words appear wherever your cursor is, including inside the Claude Code chat panel.</p>
+  <p>Go to <a href="https://wisprflow.ai/r?MARINA799" style="color: var(--sky-deep); font-weight: 600;">wispr.ai</a> to download. Free tier covers 2,000 words/week, enough to know if you'll love it.</p>
+</div>
+
+<h3>Before you start</h3>
+
+<p>This part takes about 30 to 45 minutes. Set yourself up first:</p>
+
+<ol style="margin: 0 0 18px 24px;">
+  <li>Open VS Code with your Claude folder as your workspace.</li>
+  <li>Open the Claude Code chat panel and start a fresh conversation.</li>
+  <li>At the bottom of the chat panel, set the model picker to <strong>Opus</strong>. It's the right pick for foundational thinking like this.</li>
+  <li>Press <strong>Shift + Tab</strong> in the chat panel until you see <strong>Plan Mode</strong> at the bottom. (Plan Mode is your safety net: Claude drafts a plan first, you approve, then it writes the file. Section 05 covers why this matters.)</li>
+  <li>Copy the prompts below into the chat one at a time, in the same session.</li>
+</ol>
+
+<div class="callout">
+  <strong>Don't rush this</strong>
+  <p>These four files shape every output you'll get from Claude going forward. An hour now saves you hundreds later.</p>
+</div>
+
+<div class="file-card">
+  <div class="file-name">about-me.md</div>
+  <div class="file-purpose">Who you are. How you think. How you work.</div>
+  <div class="file-desc">Your role, your audience, your standards, your daily process, what "good" looks like, what you can't stand. The personal layer that makes Claude write like you.</div>
+  <div class="file-meta">Target: under 2,000 words</div>
+</div>
+
+<div class="code-block"><span class="label">Prompt 1: Build your about-me.md</span>You are going to help me build my about-me.md file for my ABOUT ME folder. This file will be read at the start of every session. Keep it clear, specific, and lean. Under 2,000 words.
+
+Interview me, one question at a time. Cover:
+
+WHO I AM
+- What I do, my role, my industry
+- Who I serve and the relationship I have with them
+- What a meaningful week of work looks like
+
+HOW I WORK
+- Tools I use day to day
+- How I move a task from idea to done
+- My review and editing standards
+- What "finished" looks like for me
+
+WHAT GOOD LOOKS LIKE
+- An example of recent work I'm proud of and why
+- What separates strong work from average work in my field
+
+WHAT I AVOID
+- Patterns or shortcuts in my industry that bother me
+- When AI writes for me and it's wrong, what's usually off
+
+MY RULES
+- Hard lines I won't cross
+- The two or three things every piece of my work must have
+
+Push back gently if my answers are vague. Ask for examples. If I have existing files or context, use them and only ask about gaps.
+
+Once done, write the about-me.md file. Don't save the raw Q&amp;A. Extract the patterns. End with a section called "Instructions for Claude" with 8 to 10 clear, actionable rules.
+
+Create the file as about-me.md in my ABOUT ME folder.</div>
+
+<div class="file-card">
+  <div class="file-name">ideal-client.md</div>
+  <div class="file-purpose">Who you serve. What they want. What they fear.</div>
+  <div class="file-desc">Your ideal client profile, distilled. Demographics, pain points, desires, the language that resonates, the language to avoid. The difference between content that lands and content that drifts past.</div>
+  <div class="file-meta">Target: under 1,500 words</div>
+</div>
+
+<div class="code-block"><span class="label">Prompt 2: Build your ideal-client.md</span>Now help me build my ideal-client.md file. This describes the one person my business is built to serve, in enough detail that Claude can write to them like a friend who knows them well.
+
+Interview me, one question at a time. Cover:
+
+WHO THEY ARE
+- Demographics: age, life stage, profession, income
+- Family or relationship situation
+- A snapshot of their daily life
+
+WHAT THEY WANT
+- The bigger life or feeling they're after
+- The version of themselves they're becoming
+- What "winning" looks like to them
+
+WHAT THEY STRUGGLE WITH
+- Their core pain points, in their own words
+- What keeps them up at night
+- What they've tried that hasn't worked
+
+WHAT THEY FEAR
+- The deeper fears under the surface frustration
+- What they don't want their life to look like in 5 years
+
+THEIR LANGUAGE
+- Phrases that resonate, the ones that make them say "this is for me"
+- Phrases to avoid because they feel like marketing
+
+THEIR AWARENESS
+- How aware they are of the problem and of solutions
+
+If I have a profile or avatar built, ask me to share it and use it as the starting point.
+
+Make the file scannable: short sections, real language, no fluff. Create the file as ideal-client.md in my ABOUT ME folder.</div>
+
+<div class="file-card">
+  <div class="file-name">my-company.md</div>
+  <div class="file-purpose">Your goals. Your strategy. What you're saying no to.</div>
+  <div class="file-desc">Where your business is right now and where it's going. Your offers, targets, current focus, and what you're not chasing.</div>
+  <div class="file-meta">Target: under 1,000 words</div>
+</div>
+
+<div class="code-block"><span class="label">Prompt 3: Build your my-company.md</span>Now help me build my my-company.md file. About-me.md covers who I am. Ideal-client.md covers who I serve. This file is only about my business goals, current focus, and decisions. No overlap.
+
+Interview me, one question at a time, 6 to 8 questions:
+
+GOALS
+- My top 2 to 3 goals for this year, with specific numbers or milestones
+- The one metric that would make this year a success
+- Revenue, audience, or product targets
+
+FOCUS
+- What I'm spending most of my energy on this quarter
+- Platforms or channels that matter most right now
+
+DECISIONS
+- What I'm actively saying no to
+- What I recently stopped doing, and why
+- Anything I'm betting on that most people in my field aren't
+
+Output: short, scannable. Bullet points over paragraphs. Three sections: Goals, Focus right now, Saying no to. Under 1,000 words.
+
+Create the file as my-company.md in my ABOUT ME folder.</div>
+
+<div class="file-card">
+  <div class="file-name">anti-ai-writing-style.md</div>
+  <div class="file-purpose">How you don't want Claude to write.</div>
+  <div class="file-desc">The words you hate, the patterns that feel fake, the formatting choices you can't stand. This file calibrates Claude to your actual voice instead of generic AI voice.</div>
+  <div class="file-meta">Target: under 800 words</div>
+</div>
+
+<div class="code-block"><span class="label">Prompt 4: Build your anti-ai-writing-style.md</span>Last file. Help me build my anti-ai-writing-style.md.
+
+Interview me, one question at a time. Cover:
+
+WORDS I DON'T USE
+- Common AI words I find hollow (delve, harness, tapestry, leverage, unlock). Ask which ones I want to ban.
+- Industry jargon I avoid
+- Marketing cliches that bother me
+
+PATTERNS I REJECT
+- The "this isn't X, this is Y" reframe pattern
+- Excessive sentence fragments
+- Overuse of bullet points where prose would work
+
+FORMATTING I CARE ABOUT
+- Preferred sentence length
+- Preferred paragraph length
+- Capitalization preferences
+- Informal vs formal punctuation
+
+WHAT MY WRITING SHOULD ALWAYS DO
+- The 2 to 3 things every piece should achieve
+- Voice qualities that have to be present
+
+Write the file as a clear list of rules under section headings. Make it actionable. Create the file as anti-ai-writing-style.md in my ABOUT ME folder.</div>
+
+<!-- 07 -->
+<h2>07 / Your CLAUDE.md</h2>
+
+<p class="lead">Your CLAUDE.md is the brain. It's the one file Claude reads before every single conversation. It tells Claude where your foundation lives and how you want to work. Think of it as your standing instructions to a new team member on their first day.</p>
+
+<h3>Have Claude build it for you</h3>
+
+<p>You don't need to create this file by hand. Stay in your Claude Code conversation and paste the prompt below. Claude will build the file at the right location with the right contents. (Plan Mode should still be on, so you'll review the plan before Claude writes the file.)</p>
+
+<div class="code-block"><span class="label">CLAUDE.md build prompt</span>Build me a CLAUDE.md file at the top level of my Claude folder (not inside ABOUT ME or PROJECTS). Use my name in the heading. Use the draft below as a starting point, customize it for me where it makes sense, and show me the plan before writing the file.
+
+# [My Name]'s Workspace
+
+Before any task, read every file in the ABOUT ME folder:
+- about-me.md: who I am, how I work, what I value
+- ideal-client.md: who I serve, the language they use
+- my-company.md: my current goals, focus, what I'm saying no to
+- anti-ai-writing-style.md: words, patterns, and formatting to avoid
+
+Use these together. About-me sets my voice. Ideal-client sets my audience. My-company sets the strategic context. Anti-ai-writing-style is the calibration layer.
+
+Do not read PROJECTS or BRAND on your own. Only read them when I point you to a specific file or subfolder.
+
+For active workstreams, I'll tell you which project we're working on. Read the files inside that project folder. Save deliverables back into that same project folder.
+
+If a brief is unclear, ask me. Don't fill gaps with guesses. Don't pad responses. Deliver clean work.</div>
+
+<div class="folder-tree">
+  <span class="folder">&#x1F4C1; Claude</span><br>
+  &nbsp;&nbsp;<span class="file">&#x1F4C4; CLAUDE.md</span>         <span class="comment">&larr; Claude builds this for you</span><br>
+  &nbsp;&nbsp;<span class="folder">&#x1F4C1; ABOUT ME</span><br>
+  &nbsp;&nbsp;<span class="folder">&#x1F4C1; PROJECTS</span>
+</div>
+
+<div class="callout honey">
+  <strong>Why this lives as a file (not in a settings menu)</strong>
+  <p>Some tools store your instructions in a settings panel where you can't see them while you work. CLAUDE.md lives in your file tree. You can open it, read it, and edit it anytime. It doesn't silently revert or disappear. It's just a file, visible and reliable.</p>
+</div>
+
+<div class="callout">
+  <strong>You'll update this over time</strong>
+  <p>As you start projects and build workflows, you'll add lines to your CLAUDE.md. Maybe a list of active projects, a reminder about your tone preferences, or a link to a template. For now, what Claude built is all you need. To update it, just say: "Update my CLAUDE.md to also mention X."</p>
+</div>
+
+
+<!-- 08 -->
+<h2>08 / Verify and Daily Workflow</h2>
+
+<p class="lead">Your foundation is built. Your instructions are set. Plan Mode is in your hands. Now you actually use it. This section covers how to verify everything is wired up, how to start each session, and how to keep things sharp over time.</p>
+
+<h3>Verify your setup</h3>
+
+<p>Before you dive into using your setup day to day, run this one prompt to confirm everything is wired up:</p>
+
+<div class="code-block compact"><span class="label">Verification prompt</span>Tell me everything you know about me right now from my CLAUDE.md and the files in my ABOUT ME folder. Read all of it. If anything is blank, missing, or thin, flag it.</div>
+
+<p>If Claude reads back a clear, accurate picture of you and your business, you're good. If something looks off, this is the moment to catch it. Tell Claude what to fix and Plan Mode will walk you through the edit.</p>
+
+<h3>How to start a session</h3>
+
+<p>Every time you open VS Code and start a new Claude Code conversation, Claude reads your CLAUDE.md automatically. That means it already knows your foundation. You don't need to re-explain yourself.</p>
+
+<p>Start with what you need. Here are some common session openers:</p>
+
+<table>
+  <tr><th>What you're doing</th><th>What to say</th></tr>
+  <tr>
+    <td><strong>Starting a new project</strong></td>
+    <td>"I'm starting a new project called [name]. Create a folder for it in PROJECTS with a CLAUDE.md that describes the scope. Here's what I need it to do..."</td>
+  </tr>
+  <tr>
+    <td><strong>Working on an existing project</strong></td>
+    <td>"Read the CLAUDE.md in my [project name] folder. Let's pick up where we left off."</td>
+  </tr>
+  <tr>
+    <td><strong>Quick one-off task</strong></td>
+    <td>"I need a quick [draft/outline/review/calculation]. No project folder needed. Here's the context..."</td>
+  </tr>
+  <tr>
+    <td><strong>Content writing</strong></td>
+    <td>"Read my foundation files and draft [type of content] for [audience/channel]. Match my voice. I'll edit from there."</td>
+  </tr>
+  <tr>
+    <td><strong>Strategy or brainstorm</strong></td>
+    <td>"I'm thinking through [topic]. Help me work through this. Ask me questions before jumping to solutions."</td>
+  </tr>
+</table>
+
+<div class="callout cacao">
+  <strong>Push Claude to be resourceful</strong>
+  <p>When Claude asks you to go do something manually ("go check your settings" or "open that file and paste it here"), push back. Say: "Can you do that yourself?" More often than not, it can. You're training it to use its tools instead of making you the messenger.</p>
+</div>
+
+<h3>Weekly maintenance</h3>
+
+<p>Once a week, spend 5 minutes keeping your foundation current. The simplest way is to let Claude run the check-in for you. Open a fresh Claude Code conversation, make sure Plan Mode is on, and paste the prompt below.</p>
+
+<div class="code-block"><span class="label">Weekly check-in prompt</span>It's time for my weekly foundation review. Read every file in my ABOUT ME folder and my CLAUDE.md. Then walk me through, one item at a time:
+
+1. Read each ABOUT ME file. Anything stale, contradictory, or missing? Suggest specific edits.
+2. Anything to add to anti-ai-writing-style.md based on writing I've recently flagged or rejected?
+3. Has anything changed in my-company.md (new offers, new goals, new "no's")?
+4. Read my CLAUDE.md. Does it still reflect how I want you to work? Are any active projects missing or wrapped-up projects still listed?
+5. Are any of my files getting long? Targets: about-me under 2,000 words, ideal-client under 1,500, my-company under 1,000, anti-ai-writing-style under 800. CLAUDE.md under 500.
+
+Show me your plan for edits before making any changes. Then update one file at a time, with my approval each time.
+
+When the review is done, set me a recurring weekly reminder so I don't have to remember to do this. Use osascript to create a weekly recurring event in my macOS Calendar titled "Foundation file weekly review" for next [day of the week] at [time], 30 minutes long, with a reminder 30 minutes before. Confirm it's been added.</div>
+
+<div class="callout">
+  <strong>A note on file length</strong>
+  <p>Claude reads your foundation files at the start of each conversation. If your files get long, that uses more of your conversation budget. The targets in the prompt above keep things lean. Sharpen your files weekly, don't pile on.</p>
+</div>
+
+
+<!-- 09 -->
+<h2>09 / Quick Reference and Troubleshooting</h2>
+
+<p class="lead">Bookmark this section. It's the answer key when something feels off.</p>
+
+<h3>What each ABOUT ME file is for</h3>
+
+<table>
+  <tr><th>File</th><th>What it covers</th></tr>
+  <tr>
+    <td><strong>about-me.md</strong></td>
+    <td>Who you are, how you work, your standards, what you avoid.</td>
+  </tr>
+  <tr>
+    <td><strong>ideal-client.md</strong></td>
+    <td>Who you serve. Their language, their fears, what they want.</td>
+  </tr>
+  <tr>
+    <td><strong>my-company.md</strong></td>
+    <td>Goals, current focus, what you're saying no to.</td>
+  </tr>
+  <tr>
+    <td><strong>anti-ai-writing-style.md</strong></td>
+    <td>Words and patterns Claude must not use when writing as you.</td>
+  </tr>
+</table>
+
+<h3>If something feels off</h3>
+
+<table>
+  <tr><th>What you're seeing</th><th>Where to look</th></tr>
+  <tr>
+    <td>Claude's writing sounds generic, not like you</td>
+    <td>Update <strong>anti-ai-writing-style.md</strong>. Add the specific patterns or words you're seeing that don't match your voice.</td>
+  </tr>
+  <tr>
+    <td>Claude asks obvious questions you've already answered</td>
+    <td>Check that your CLAUDE.md is at the top level of your Claude folder (not inside ABOUT ME or PROJECTS). Re-open the workspace if you've moved things around.</td>
+  </tr>
+  <tr>
+    <td>Claude doesn't know about a recent decision or pivot</td>
+    <td>Update <strong>my-company.md</strong>. The foundation files are read at the start of every session, so changes land immediately.</td>
+  </tr>
+  <tr>
+    <td>Claude went off and did something you didn't approve</td>
+    <td>You weren't in Plan Mode. Press Shift + Tab in the chat panel until Plan Mode is on. From now on, toggle it on at the start of any non-trivial task.</td>
+  </tr>
+  <tr>
+    <td>Claude can't find a file</td>
+    <td>Check the file is actually in your VS Code workspace folder. The file tree on the left shows what Claude can see. If it's not in the tree, it's not in the workspace.</td>
+  </tr>
+  <tr>
+    <td>Everything just feels off suddenly</td>
+    <td>Open your CLAUDE.md and your four ABOUT ME files. Make sure nothing's blank or accidentally truncated. If they look fine, start a fresh Claude Code conversation. Sometimes a session just needs a reset.</td>
+  </tr>
+  <tr>
+    <td>The conversation feels heavy or Claude is slowing down</td>
+    <td>Conversations have a memory budget. The longer one runs, the more of that budget gets used. If a session has been going for hours and dozens of messages, start a fresh one. One task per conversation is a good habit. Claude reads your CLAUDE.md and ABOUT ME files at the start of every new session, so you don't lose context, just chat history.</td>
+  </tr>
+</table>
+
+<h3>Things to remember</h3>
+
+<ul>
+  <li><strong>CLAUDE.md gets read every session.</strong> Edit it freely. Changes apply on the next conversation.</li>
+  <li><strong>The four foundation files shape your voice.</strong> Sharpen them weekly.</li>
+  <li><strong>Plan Mode is your safety net.</strong> Shift + Tab. Use it on anything you haven't done before.</li>
+  <li><strong>One task per conversation.</strong> When you switch to a new task, start a new chat. Old chats can stay long; new chats stay sharp.</li>
+  <li><strong>You're the boss.</strong> Push back when Claude tries to make you the messenger.</li>
+</ul>
+
+
+<!-- 10 -->
+<h2>10 / Bring In Existing Assets (Optional)</h2>
+
+<p class="lead">If you have content, scripts, brand guidelines, or any other working material from before this setup, you can bring them in. Claude does the audit. You decide what to keep.</p>
+
+<h3>The asset audit prompt</h3>
+
+<p>Once your foundation files are built and your CLAUDE.md is set, open a fresh Claude Code conversation, make sure Plan Mode is on, and run this:</p>
+
+<div class="code-block compact"><span class="label">Asset audit prompt</span>I have existing assets that may be useful: [list them, e.g. Google Drive folders, Dropbox paths, content libraries, brand guidelines, scripts]. Read what you can access, summarize what's there, and decide which pieces are worth keeping inside my Claude workspace. Give me a plan, then tell me how you would execute on it. I'll review the plan in plan mode before you change anything.</div>
+
+<p>Because you're in Plan Mode, Claude shows you exactly what it's about to do (which files to bring in, where to put them, what to name them) before touching anything. You approve, adjust, or stop.</p>
+
+<h3>Set up your brand basics</h3>
+
+<p>If you have brand colors, fonts, a logo system, or a brand guide of any kind, give Claude a place for them so they're available to every future project. Run this prompt:</p>
+
+<div class="code-block compact"><span class="label">Brand setup prompt</span>Create a BRAND folder at the top of my Claude workspace. I'll point you at my brand guide (PDF, doc, or however I have it). Read it and create a brand-basics.md file inside the BRAND folder summarizing my colors, fonts, logo usage, and voice notes in a way that's easy for you to reference on future tasks. Also update my CLAUDE.md so you always read my brand basics before any visual or design work. Show me the plan first.</div>
+
+<p>This single move saves hours later when you're generating mockups, slide decks, or social graphics. Claude will already know your palette and fonts.</p>
+
+
+<!-- 11 -->
+<h2>11 / Save Your Tokens</h2>
+
+<p class="lead">When you start automating, you'll connect Claude to other tools (Google Drive, Meta Ads, your email service, your CRM). Each tool gives you an API key, which is basically a password Claude uses to log in for you. API keys never live in plain text. Doppler is a free vault for those keys.</p>
+
+<h3>Why a vault matters</h3>
+
+<p>If an API key ends up in a file you save to GitHub, anyone can find it. Even private repos leak. The convention is simple: keys live in a separate vault, scripts ask the vault for them at runtime, and the keys never appear in your code.</p>
+
+<h3>Setting up Doppler</h3>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Sign up for Doppler</h4>
+      <p>Go to <a href="https://www.doppler.com" style="color: var(--sky-deep); font-weight: 600;">doppler.com</a> and create a free account. The free tier covers everything you'll need.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Let Claude install the Doppler CLI for you</h4>
+      <p>Open Claude Code and say: "Install the Doppler CLI on my Mac and walk me through logging in." Claude will run the install commands and tell you what to click.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Create a project for your automations</h4>
+      <p>In your Doppler dashboard, create one project (something like <code>my-automations</code>). Inside, paste each API key with a clear name in all caps (e.g., META_ACCESS_TOKEN, GHL_API_KEY). Doppler keeps them encrypted.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Run scripts through Doppler</h4>
+      <p>When Claude builds an automation script, it will run it through Doppler. The pattern looks like: <code>doppler run -- python3 my_script.py</code>. The keys flow in at runtime. They never live in your code.</p>
+    </div>
+  </div>
+</div>
+
+<div class="callout cacao">
+  <strong>Never paste API keys into chat (lock this in)</strong>
+  <p>Not into Claude Code, not into ChatGPT, not into Slack, not anywhere. If a key ends up in a chat log, treat it as compromised and rotate it immediately: delete the old one in the tool's dashboard, generate a new one, paste the new one into Doppler.</p>
+  <p style="margin-top: 10px;">To make this a hard rule that Claude follows from now on, run this prompt in a fresh Claude Code conversation with Plan Mode on:</p>
+  <div class="code-block compact" style="margin-top: 10px;"><span class="label">API key safety prompt</span>Add a security rule to my CLAUDE.md. You should never ask me to paste API keys, passwords, access tokens, or any other credential into the chat panel. If you need a new key for a project, walk me through adding it to Doppler instead, and have my scripts read it from Doppler at runtime. If you ever notice a key has been pasted into chat history, remind me to rotate it. Show me the plan, then update CLAUDE.md.</div>
+</div>
+
+
+<!-- 12 -->
+<h2>12 / What's Next: Building Automations</h2>
+
+<p class="lead">This is where Claude goes from assistant to builder.</p>
+
+<div class="callout">
+  <strong>What this looks like in practice</strong>
+  <p>As two quick examples, here's what I just recently built that's already saving me time:</p>
+  <ul style="margin: 8px 0 0 24px;">
+    <li>Automating my Meta ads campaigns (creating campaigns, ad sets, and ads from a brief, instead of clicking through Meta's interface for hours)</li>
+    <li>Populating spreadsheets with data tracking from across my tools (so weekly performance reviews stop being a manual copy-paste job)</li>
+  </ul>
+  <p style="margin-top: 8px;">Both started as "this part of my week is eating me alive." That's the right starting point for any automation project.</p>
+</div>
+
+<h3>How automation works</h3>
+
+<p>Same principle as everything else: you describe what you want, Claude writes a plan, you approve, only then does Claude build. Plan Mode (Section 05) is non-negotiable here. If you can review a plan and say "yes, do that" or "no, change this part," you can automate anything.</p>
+
+<div class="callout cacao">
+  <strong>Front-load the conversation (this is where the gold is)</strong>
+  <p>The single best thing you can do for any automation project is front-load context before you hit execute. Tell Claude everything about the task, your standards, edge cases, the tools involved, what success looks like, what failure looks like. Go back and forth in plan mode. Ask Claude what else it needs from you. Don't rush to build.</p>
+  <p>And tell Claude to be resourceful. If it asks you to go check something or paste a file, push back. Most of the time it can do that itself. The more you train that habit early, the less you become the messenger.</p>
+  <p>Time spent on the plan is the cheapest part of the project. Time spent fixing bad output is the most expensive.</p>
+</div>
+
+<h3>Your first automation project</h3>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Pick a repeating task</h4>
+      <p>Something you do every week that follows the same steps. Sending a batch of emails. Formatting a report. Pulling data from one place and putting it in another.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Use the kickoff prompt</h4>
+      <p>Open a fresh Claude Code conversation with Plan Mode on. Paste this:</p>
+      <div class="code-block compact" style="margin-top: 10px;"><span class="label">Automation kickoff prompt</span>I would like to create a project around this workflow: [describe the workflow in plain English, including what triggers it, what it produces, and which tools or files are involved]. Set up the project folder in the correct spot under PROJECTS, create a CLAUDE.md inside it that describes the automation, and show me a plan for what you'll build, how it works, and what I'll need to review. Wait for my approval before writing any code.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Review, adjust, approve</h4>
+      <p>Claude will show you a plan. Read it. If something doesn't make sense, ask about it. If you want changes, say so. When it looks right, tell Claude to build it.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Test and refine</h4>
+      <p>Run the automation. Check the output. If something needs adjusting, tell Claude what to fix. Most automations need 2 to 3 rounds of refinement before they're solid.</p>
+    </div>
+  </div>
+</div>
+
+<div class="callout honey">
+  <strong>The 90% rule</strong>
+  <p>Automation handles 90% of the grunt work. You still do the creative pass, the final review, the human judgment call. This isn't about replacing you. It's about freeing you up to do the work that actually requires you.</p>
+</div>
+
+<div class="next-step">
+  <div class="label">You're Set Up</div>
+  <h3>Now go use it.</h3>
+  <p>Your foundation is built. Your workspace is ready. Start with what you need most today, whether it's a piece of content, a strategy session, or just a conversation. The more you use it, the sharper it gets.</p>
+  <p>When you hit something that feels off, update your anti-ai-writing-style.md. When you find yourself repeating a task, come back to Section 12. When something breaks, check Section 09 first, then tell Claude to fix it.</p>
+  <p>This system grows with you. You've done the hard part.</p>
+</div>
+
+<div class="callout">
+  <strong>One last thing</strong>
+  <p>If you have any feedback on this guide, let me know. We're all learning together.</p>
+  <p style="margin-top: 8px;">I believe in you.</p>
+  <p style="margin-top: 8px;">🫶 Marina</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-meta">Setup Guide &middot; v1.0</div>
+</div>
+
+</body>
+</html>
