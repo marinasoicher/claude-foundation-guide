@@ -548,9 +548,9 @@
     background: var(--sky-light);
     border-left: 2px solid var(--sky-deep);
     padding: 12px 18px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12.5px;
-    color: var(--cacao-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    color: var(--cacao);
     border-radius: 0 4px 4px 0;
     margin-top: 10px;
     line-height: 1.6;
@@ -888,7 +888,7 @@
 <div class="cover">
   <div class="eyebrow">Your AI Setup Guide</div>
   <h1>Setting Up<br>Claude for<br>Your Business</h1>
-  <div class="version">Version 1.0</div>
+  <div class="version">Version 1.1</div>
   <div class="byline">By Marina Soicher</div>
   <div class="subtitle">I spent 50+ hours figuring out the best way to set up AI<br class="desktop-only">for my business. This guide is the shortcut.</div>
   <div class="pills">
@@ -926,7 +926,8 @@
     <li><span class="num">09</span> Quick reference and troubleshooting</li>
     <li><span class="num">10</span> Bring in existing assets (optional)</li>
     <li><span class="num">11</span> Save your tokens (optional)</li>
-    <li><span class="num">12</span> What's next: building automations</li>
+    <li><span class="num">12</span> Sync to your phone via GitHub (optional)</li>
+    <li><span class="num">13</span> What's next: building automations</li>
   </ol>
 </div>
 
@@ -949,14 +950,17 @@
 <ul style="margin: 0 0 16px 24px;">
   <li><strong>Claude Chat</strong> (claude.ai): the chat in your browser. Same as ChatGPT in shape. Great on your phone for quick questions or voice notes on the go.</li>
   <li><strong>Claude Cowork</strong>: a desktop app for working with Claude across folders of files (writing, strategy, content). I spent a lot of time here, and I'm transitioning to only using Code from here on.</li>
-  <li><strong>Claude Code</strong>: an extension that lives inside a free app called VS Code. This is our main spot where we're living moving forward. Claude can read your files, create new ones, edit existing ones, and run things for you, all while you watch.</li>
+  <li><strong>"Claude Code" inside the Claude app</strong>: a tab inside the Claude desktop and mobile apps that connects to GitHub. Useful for working on files from your phone or for browsing your code from the app. This is <em>not</em> the path we're using to set up your daily workspace.</li>
+  <li><strong>Claude Code inside VS Code</strong> (the path this guide sets you up with): an extension that lives inside a free app called VS Code. This is the daily workspace I recommend. Claude can read your files, create new ones, edit existing ones, and run things for you, all while you watch.</li>
 </ul>
 
-<p>You need Claude Code. That's what this guide will set you up with.</p>
+<p>The VS Code path is the one we're setting up. If you've heard people mention the "terminal," that's just a panel at the bottom of VS Code that Claude uses on your behalf to actually do things. You don't need to type anything into it. Section 03 covers exactly what you're looking at.</p>
 
 <h3>Why I built this guide</h3>
 
 <p>I'm going to be honest with you. I spent over 50 hours in the last two weeks trying different AI tools, different setups, and different approaches. I went down rabbit holes. I set up systems I didn't need. I followed frameworks that were more complicated than necessary.</p>
+
+<p>Along the way, I talked through what I was learning with mentors (Keala Kanai, who has been a huge influence on how I think about this) and with my husband Payton, who's a software engineer and helped me make sense of the developer-side pieces. I read everything I could find, watched the people doing this well, and tested approaches on my own business until something clicked.</p>
 
 <p>What I landed on was much simpler than where I started. The foundation files are essential. They're what make Claude genuinely useful for your specific business. But the path to get there doesn't need to be 50 hours. It needs to be about one.</p>
 
@@ -965,11 +969,6 @@
 <div class="callout honey">
   <strong>Worried AI will make you less authentic?</strong>
   <p>I had the same thought before I started. My experience has been the opposite. Claude learned how I think and how I talk, and it handles the stuff that used to eat up my time. Because of that, I'm spending more of my energy on mentorship calls, creating content from my real life experiences, and learning new skills. I've never felt more in my zone of genius. AI didn't replace my voice. It gave me the space to actually use it.</p>
-</div>
-
-<div class="callout">
-  <strong>Inspired by Ruben Hassid</strong>
-  <p>The thinking underneath this guide draws from Ruben Hassid's writing on setting up Claude for non-developers. If you want more depth, his Claude Code walkthrough is at <a href="https://ruben.substack.com/p/claude-code" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">ruben.substack.com/p/claude-code</a>, and his structured Claude guides (beginner to expert, all free) live at <a href="https://claude101.com" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">claude101.com</a>.</p>
 </div>
 
 <h3>What is VS Code, and where does Claude live in it?</h3>
@@ -993,14 +992,15 @@
 <!-- 02 -->
 <h2>02 / Account Setup</h2>
 
-<p>Fifteen minutes. Do these three steps on your computer before anything else.</p>
+<p>Twenty minutes. Do these four steps on your computer before anything else.</p>
 
 <div class="steps">
   <div class="step">
     <div class="step-num">1</div>
     <div class="step-body">
       <h4>Create your Claude account</h4>
-      <p>Go to <a href="https://claude.ai/referral/T9b4RQafXw" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">claude.ai</a> and sign up. Use the same email you use for Google so future integrations stay seamless. Upgrade to Pro ($20/month) for full access. Pro includes Claude Code in VS Code at no extra cost.</p>
+      <p>Go to <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">claude.ai</a> and sign up. Use the same email you use for Google so future integrations stay seamless. Upgrade to Pro ($20/month) right away. The free trial works, but if you're going to use this seriously, Pro is worth it from day one. Pro includes Claude Code in VS Code at no extra cost.</p>
+      <p>Heads up about the bigger plan: once you're using Claude Code heavily, you'll probably want to upgrade to the Max plan ($100/month) for more usage. It's well worth it when the time comes, but you don't need it on day one. Start with Pro and upgrade when you feel the limits.</p>
     </div>
   </div>
 
@@ -1008,10 +1008,10 @@
     <div class="step-num">2</div>
     <div class="step-body">
       <h4>Download VS Code</h4>
-      <p>VS Code is your workspace. It's a free app from Microsoft.</p>
+      <p>VS Code is your workspace. It's a free app from Microsoft. The full name is <strong>Visual Studio Code</strong>. That's the one you want. <strong>Visual Studio</strong> (without the "Code") is a different, heavier Microsoft product. If you end up on a page about Visual Studio (no "Code"), or on a GitHub page, you're in the wrong spot. Use the direct link below.</p>
       <div class="action">
         <strong>Where to get it</strong>
-        Go to <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">code.visualstudio.com/download</a> and install it. If you're on a Mac and the page asks you to choose between Apple Silicon and Intel, pick <strong>Apple Silicon</strong> (that's the right one if your Mac was made in 2021 or later). Not sure? Click the Apple menu at the top left of your screen, then "About This Mac." If it says M1, M2, M3, or M4, you want Apple Silicon.
+        Go to <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">code.visualstudio.com/download</a>. On a Mac, choose the <strong>.dmg, Apple Silicon</strong> download (Apple Silicon is right for any Mac made in 2021 or later). Not sure? Click the Apple menu at the top left of your screen, then "About This Mac." If it says M1, M2, M3, or M4, you want Apple Silicon. The .dmg opens like a normal Mac installer.
       </div>
     </div>
   </div>
@@ -1025,13 +1025,32 @@
         <strong>Inside VS Code</strong>
         Click the <strong>Extensions</strong> icon in the left sidebar (it looks like four squares with one detached). In the search bar at the top, type <strong>Claude Code</strong>. The official extension by Anthropic should be the first result. Click <strong>Install</strong>. When prompted, sign in with the same Claude account you created in Step 1.
       </div>
+      <p style="margin-top: 12px; font-size: 15px;">If you wander onto a Claude download page along the way and see options for a Mac app (.dmg) or a command-line tool (CLI), you can ignore both. The VS Code extension is the path this guide uses. That's all you need.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Sign up for GitHub</h4>
+      <p>GitHub is a free, private cloud that backs up your local Claude files. You'll be prompted for a GitHub account at some point inside Claude Code anyway. Setting it up now means no confusion later, and your work is backed up from day one.</p>
+      <div class="action">
+        <strong>Where to get it</strong>
+        Go to <a href="https://github.com" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">github.com</a> and create a free account. Use the same email you use for Google so things stay tidy. You don't need to do anything else with GitHub right now. Just having the account ready is enough.
+      </div>
     </div>
   </div>
 </div>
 
+<div class="callout honey">
+  <strong>If you're on Windows, two extras</strong>
+  <p><strong>You'll need Git for Windows installed.</strong> Claude Code on Windows requires it. Go to <a href="https://git-scm.com/download/win" target="_blank" rel="noopener noreferrer" style="color: var(--honey-deep); font-weight: 600;">git-scm.com/download/win</a> and install with the defaults. You only have to do this once.</p>
+  <p><strong>You'll see PowerShell working in the bottom panel.</strong> When Claude starts actually doing things (running commands, creating files), you'll see text flowing in a panel at the bottom of VS Code. That's PowerShell, the Windows terminal. Claude is using it on your behalf. You don't need to touch it.</p>
+</div>
+
 <div class="callout">
   <strong>Want Claude on your phone too?</strong>
-  <p>Once your Claude account is set up, download the Claude app on iOS or Android. It's great for quick questions on the go, voice-dictating thoughts while you're out with the kids, or casual conversations away from your desk. Your real workspace lives on your computer in VS Code, but the phone app is a handy companion.</p>
+  <p>Once your Claude account is set up, download the Claude app on iOS or Android. It's great for quick questions on the go, voice-dictating thoughts while you're out with the kids, or casual conversations away from your desk. Your real workspace lives on your computer in VS Code, but the phone app is a handy companion. If you want your phone and computer to share the same workspace (so a note you take on your phone shows up on your computer, and vice versa), Section 12 walks through that setup.</p>
 </div>
 
 
@@ -1071,30 +1090,30 @@
 <p>VS Code can look overwhelming the first time you open it. There's more visible chrome than most apps you've used: icon strips, panels, menus. Here's what you're actually looking at, and what you can ignore.</p>
 
 <div class="screenshot-frame">
-  <img src="vscode-interface.png" alt="VS Code interface with numbered callouts showing the activity bar, file tree, editor area, Claude Code chat panel, and terminal">
+  <img src="vscode-interface.png" alt="VS Code interface showing the activity bar, file tree, editor area, Claude Code chat panel, and terminal">
 </div>
 
-<p>The numbers in the image match this breakdown:</p>
+<p>Here's the breakdown of what you're looking at:</p>
 
 <table>
   <tr><th>What you see</th><th>What it does</th><th>Do you need it now?</th></tr>
   <tr>
-    <td><strong>Activity bar (far left, vertical icons)</strong></td>
-    <td>The strip of icons on the very left edge. The top one (looks like papers stacked) shows your file tree. The Extensions icon (four squares) is where you installed Claude Code. Most other icons can be ignored at first.</td>
+    <td><strong>Activity bar</strong> (the vertical icon strip on the far left)</td>
+    <td>Each icon switches what's shown in the left sidebar. The top one (looks like papers stacked) shows your file tree. The Extensions icon (four squares) is where you installed Claude Code. If you ever can't see your files, you probably clicked Extensions or Search by accident. Click the file tree icon at the top to get back.</td>
     <td>Just the file tree icon. Ignore the rest for now.</td>
   </tr>
   <tr>
-    <td><strong>File tree (next to the activity bar)</strong></td>
+    <td><strong>File tree</strong> (next to the activity bar)</td>
     <td>Shows all your folders and files. Click any file to open and read it. This is where your ABOUT ME folder, PROJECTS, and CLAUDE.md live.</td>
     <td>Yes. This is your home base.</td>
   </tr>
   <tr>
-    <td><strong>Editor (center)</strong></td>
+    <td><strong>Editor</strong> (the big area where files open)</td>
     <td>This is where files open when you click them. Useful for reading and editing files directly. Claude can do most editing for you, so you can mostly leave this alone at first.</td>
     <td>Not yet. You'll glance at it as Claude makes changes.</td>
   </tr>
   <tr>
-    <td><strong>Claude Code panel (right side or bottom)</strong></td>
+    <td><strong>Claude Code panel</strong> (right side, bottom, or wherever you've placed it)</td>
     <td>Where you talk to Claude. Type your message, hit enter. Claude can read your files, create new ones, and build things from here.</td>
     <td>Yes. This is where all the work happens.</td>
   </tr>
@@ -1105,9 +1124,19 @@
   </tr>
 </table>
 
+<div class="callout">
+  <strong>Your layout might look a little different</strong>
+  <p>VS Code lets you rearrange panels (Claude chat on the right, on the bottom, or popped out into its own window). Mac and Windows look slightly different too. Don't worry about matching screenshots exactly. If something doesn't look like the picture, click around a little. You can't break anything. The two things you always want visible are the file tree on the left and the Claude chat panel.</p>
+</div>
+
 <div class="callout cacao">
   <strong>It felt overwhelming for me too</strong>
   <p>When I first opened VS Code, I didn't know where to click. There were a lot more icons and panels than I expected. I spent the first session just talking to Claude about my setup and exploring. Within about 20 minutes, the two panels that matter (file tree plus Claude chat) felt natural. Everything else faded into the background. Give yourself that same grace.</p>
+</div>
+
+<div class="callout">
+  <strong>You can open multiple tabs at once</strong>
+  <p>VS Code lets you keep multiple files open at the same time as tabs across the top of the editor (just like a browser). It's an underrated feature. You can have your CLAUDE.md, an active email draft, and a project file all open side by side and switch between them with a click. As you start working on more things in parallel, this is going to make your life a lot easier.</p>
 </div>
 
 <div class="callout">
@@ -1174,28 +1203,28 @@ PROMPT 4: Pull out writing samples you've created for me that I responded to mos
 
 <p class="lead">Before you do anything else in Claude Code, learn this one habit. It's the single most important section in this guide for non-developers.</p>
 
-<p>Plan Mode works like this: you describe what you want, Claude writes a plan, you read it and approve it. Only then does Claude build anything. <strong>Nothing happens without your approval.</strong></p>
-
-<p>You're not handing the keys over to AI. You're reviewing work before it ships, the same way you'd review a team member's draft before sending it out.</p>
-
 <div class="callout honey">
   <strong>Plan Mode is your safety net</strong>
-  <p>If you're nervous about AI doing something unexpected, Plan Mode is the answer. Claude will always show you what it's about to do first. If something doesn't look right, say "change this part" or "stop, let's rethink." You're the boss. Claude is the builder who checks with you before every move.</p>
+  <p>You describe what you want, Claude writes a plan, you read it and approve it. Only then does Claude build anything. Nothing happens without your approval. If something doesn't look right, say "change this part" or "stop, let's rethink." You're the boss. Claude is the builder who checks with you before every move.</p>
 </div>
 
-<h3>How you actually interact with Claude on a plan</h3>
+<p>When Claude shows you a plan, you can reply in chat with any edits, highlight a specific line to comment on it (like a Google Doc), or click Accept/Reject when Claude is about to touch a file. The back and forth is the work. You'll find your rhythm in a few sessions.</p>
 
-<p>Once Claude shows you a plan, you have a few ways to respond. You don't have to be precious about it. Pick whichever feels easier in the moment:</p>
+<h3>Turning Plan Mode on</h3>
 
-<ul style="margin: 0 0 16px 24px;">
-  <li><strong>Highlight and comment.</strong> Just like leaving a comment in a Google Doc, you can select any line in the plan and add a note ("change this part to X" or "this assumes Y, but Z is true"). Claude reads the comment and revises that part of the plan. Use this when one specific section is off and the rest looks right.</li>
-  <li><strong>Reply in chat.</strong> Type back in plain English: "looks good, but skip step 3" or "yes do that, but also add a step for X." Best for bigger changes or when you want to think out loud.</li>
-  <li><strong>Use the Accept and Reject buttons.</strong> When Claude is about to make a change to a file, you'll see Accept and Reject buttons appear (usually on the right side of the editor or inside the chat panel). Click Accept to let the change land. Click Reject to throw it out. You can do this one change at a time or all at once.</li>
-</ul>
+<p>Press <strong>Shift + Tab</strong> in the chat panel. A menu pops up with your options. Pick <strong>Plan mode</strong>. The bottom of the chat panel will show "Plan mode" as a quiet confirmation that it's on.</p>
 
-<p>None of this is one-shot. You'll usually go back and forth a few times before the plan is right, and that's the point. The back and forth is the work.</p>
+<div class="screenshot-frame" style="max-width: 380px; margin-left: 0;">
+  <img src="plan-mode-indicator.png" alt="The Claude Code modes menu showing Ask before edits, Edit automatically, Plan mode (selected), and Auto mode, with the Plan mode indicator visible at the bottom of the chat input">
+</div>
 
-<p>You'll turn Plan Mode on at the very start of the next section, when you sit down to build your four core files. The exact keys are right there in the prep block.</p>
+<p>You'll turn Plan Mode on at the very start of the next section, when you sit down to build your four core files.</p>
+
+<div class="callout honey">
+  <strong>Hot tip: once you're comfortable, switch to Auto Mode</strong>
+  <p>In the same menu (Shift + Tab), there's an option called <strong>Auto mode</strong>. Claude picks the best permission mode for each task on its own, which moves things along quicker. Once I'd trusted the rhythm of Plan Mode for a couple of weeks, Auto Mode became my default for everyday work. It's a real time-saver.</p>
+  <p>For anything new, sensitive, or important, keep Plan Mode on. Plan Mode is the habit. Auto Mode is the convenience.</p>
+</div>
 
 
 <!-- 06 -->
@@ -1207,7 +1236,7 @@ PROMPT 4: Pull out writing samples you've created for me that I responded to mos
   <strong>Optional: speak your answers instead of typing</strong>
   <p>The four prompts below interview you in detail. Most of us type at about 60 words per minute. We speak at 150. Speaking your answers gets you through faster, and your ideas come out fuller, more like you.</p>
   <p><strong>Wispr Flow</strong> is a voice-to-text tool that runs in the background on your computer. Hold a key, talk, release. Your words appear wherever your cursor is, including inside the Claude Code chat panel.</p>
-  <p>Go to <a href="https://wisprflow.ai/r?MARINA799" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">wispr.ai</a> to download. Free tier covers 2,000 words/week, enough to know if you'll love it.</p>
+  <p>Go to <a href="https://wisprflow.ai/r?MARINA799" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">wisprflow.ai</a> to download. Free tier covers 2,000 words/week, enough to know if you'll love it.</p>
 </div>
 
 <h3>Before you start</h3>
@@ -1217,7 +1246,22 @@ PROMPT 4: Pull out writing samples you've created for me that I responded to mos
 <ol style="margin: 0 0 18px 24px;">
   <li>Open VS Code with your Claude folder as your workspace.</li>
   <li>Open the Claude Code chat panel and start a fresh conversation.</li>
-  <li>At the bottom of the chat panel, set the model picker to <strong>Opus</strong>. It's the right pick for foundational thinking like this.</li>
+  <li>Double-check the model is set to <strong>Opus</strong>. It's usually the default, but if not: at the bottom of the chat input, click the small box with a diagonal line through it and choose <strong>Switch model</strong>. Or type <strong>/model</strong> in the chat. Opus is the right pick for foundational thinking like this.</li>
+</ol>
+
+<p style="font-size: 15px; color: var(--cacao-soft); margin-left: 24px;">Here's the diagonal-line box at the bottom of the chat input, next to the plus sign:</p>
+
+<div class="screenshot-frame" style="max-width: 500px; margin-left: 24px;">
+  <img src="model-picker-closed.png" alt="The bottom of the Claude Code chat input, showing the plus button, the diagonal-line model picker box, and the Auto mode indicator on the right">
+</div>
+
+<p style="font-size: 15px; color: var(--cacao-soft); margin-left: 24px;">Click it, and you'll see this menu. Click "Switch model" to choose Opus:</p>
+
+<div class="screenshot-frame" style="max-width: 500px; margin-left: 24px;">
+  <img src="model-picker-open.png" alt="The Claude Code model picker menu opened, showing the Switch model option set to Default (recommended), an Effort slider, and a Customize section">
+</div>
+
+<ol start="4" style="margin: 18px 0 18px 24px;">
   <li>Press <strong>Shift + Tab</strong> in the chat panel until you see <strong>Plan Mode</strong> at the bottom. (Plan Mode is your safety net: Claude drafts a plan first, you approve, then it writes the file. Section 05 covers why this matters.)</li>
   <li>Copy the prompts below into the chat one at a time, in the same session.</li>
 </ol>
@@ -1391,7 +1435,7 @@ Before any task, read every file in the ABOUT ME folder:
 
 Use these together. About-me sets my voice. Ideal-client sets my audience. My-company sets the strategic context. Anti-ai-writing-style is the calibration layer.
 
-Do not read PROJECTS or BRAND on your own. Only read them when I point you to a specific file or subfolder.
+Do not read PROJECTS or BRAND on your own. Only read them when I point you to a specific file or subfolder. (BRAND is a folder I might add later if I bring in brand assets. If it doesn't exist yet, that's fine, just leave it alone.)
 
 For active workstreams, I'll tell you which project we're working on. Read the files inside that project folder. Save deliverables back into that same project folder.
 
@@ -1411,7 +1455,8 @@ If a brief is unclear, ask me. Don't fill gaps with guesses. Don't pad responses
 
 <div class="callout">
   <strong>You'll update this over time</strong>
-  <p>As you start projects and build workflows, you'll add lines to your CLAUDE.md. Maybe a list of active projects, a reminder about your tone preferences, or a link to a template. For now, what Claude built is all you need. To update it, just say: "Update my CLAUDE.md to also mention X."</p>
+  <p>As you start projects and build workflows, you'll add lines to your CLAUDE.md. Maybe a list of active projects, a reminder about your tone preferences, or a link to a template. For now, what Claude built is all you need. When you want to add something, just tell Claude: "Update my CLAUDE.md to mention this."</p>
+  <p style="margin-top: 8px;">In Section 08, we'll set up a weekly check-in so your CLAUDE.md and ABOUT ME files stay current automatically as you keep working with Claude. You don't have to think about it.</p>
 </div>
 
 
@@ -1458,30 +1503,56 @@ If a brief is unclear, ask me. Don't fill gaps with guesses. Don't pad responses
   </tr>
 </table>
 
-<div class="callout cacao">
-  <strong>Push Claude to be resourceful</strong>
+<h3>How to finish a session</h3>
+
+<p>Don't just close the tab. Before you wrap up a working session, especially a long one or one that's drifting into new territory, make a habit of checking in with Claude:</p>
+
+<ul style="margin: 0 0 16px 24px;">
+  <li><strong>"Save anything pertinent from this session that I'll need next time."</strong> Claude will write notes to the right project's CLAUDE.md or a handoff file, so the next session starts where this one ended.</li>
+  <li><strong>"Should we move to a new chat for the next topic, or keep going here?"</strong> Claude will tell you honestly. Long chats slow down and drift. If we're switching topics or things are getting heavy, it'll suggest a fresh start.</li>
+  <li><strong>"If we open a new chat, what should the opening prompt be?"</strong> Claude will draft the next session's opener, with the right context loaded, so the new chat picks up clean.</li>
+</ul>
+
+<p>The more you converse with Claude about session boundaries, the more it becomes a partner in keeping your work organized, instead of just an assistant you fire tasks at.</p>
+
+<div class="callout honey">
+  <strong>Hot tip: push Claude to be resourceful</strong>
   <p>When Claude asks you to go do something manually ("go check your settings" or "open that file and paste it here"), push back. Say: "Can you do that yourself?" More often than not, it can. You're training it to use its tools instead of making you the messenger.</p>
+  <p>This is one of the highest-leverage habits in this whole guide. Build it early.</p>
 </div>
 
 <h3>Weekly maintenance</h3>
 
-<p>Once a week, spend 5 minutes keeping your foundation current. The simplest way is to let Claude run the check-in for you. Open a fresh Claude Code conversation, make sure Plan Mode is on, and paste the prompt below.</p>
+<p>Spend 5 minutes a week keeping your foundation current. The cleanest way to make it stick is to wrap the check-in into a slash command (Claude Code calls these "skills"). Once it's set up, you just type <strong>/weekly-check-in</strong> in any conversation and Claude runs the full review for you.</p>
 
-<div class="code-block"><span class="label">Weekly check-in prompt</span>It's time for my weekly foundation review. Read every file in my ABOUT ME folder and my CLAUDE.md. Then walk me through, one item at a time:
+<p>Run this prompt once to create the skill. Plan Mode on, fresh conversation:</p>
+
+<div class="code-block"><span class="label">Create your weekly check-in skill</span>Create a workspace skill called weekly-check-in at .claude/skills/weekly-check-in/SKILL.md in my Claude folder. The SKILL.md should have proper frontmatter (name, description) and the instructions below as the body. Show me the plan first, then create the file.
+
+Use this as the skill's instructions:
+
+---
+
+It's time for my weekly foundation review. Read every file in my ABOUT ME folder and my CLAUDE.md. Then walk me through, one item at a time:
 
 1. Read each ABOUT ME file. Anything stale, contradictory, or missing? Suggest specific edits.
 2. Anything to add to anti-ai-writing-style.md based on writing I've recently flagged or rejected?
 3. Has anything changed in my-company.md (new offers, new goals, new "no's")?
-4. Read my CLAUDE.md. Does it still reflect how I want you to work? Are any active projects missing or wrapped-up projects still listed?
-5. Are any of my files getting long? Targets: about-me under 2,000 words, ideal-client under 1,500, my-company under 1,000, anti-ai-writing-style under 800. CLAUDE.md under 500.
+4. Read my CLAUDE.md. Does it still reflect how I want you to work? Are any active projects missing, or wrapped-up projects still listed?
+5. Are any of my files getting long? Targets: about-me under 2,000 words, ideal-client under 1,500, my-company under 1,000, anti-ai-writing-style under 800. CLAUDE.md under 500. When trimming, remember the reason: you read these files at the start of every conversation. Lean files mean sharper responses and more budget for the actual work. Don't pile on; sharpen.
 
-Show me your plan for edits before making any changes. Then update one file at a time, with my approval each time.
+Show me your plan for edits before making any changes. Then update one file at a time, with my approval each time.</div>
 
-When the review is done, set me a recurring weekly reminder so I don't have to remember to do this. Use osascript to create a weekly recurring event in my macOS Calendar titled "Foundation file weekly review" for next [day of the week] at [time], 30 minutes long, with a reminder 30 minutes before. Confirm it's been added.</div>
+<p>Once the skill exists, the weekly review is two steps: type <strong>/weekly-check-in</strong> in any Claude Code conversation with Plan Mode on. Claude does the rest.</p>
+
+<div class="callout">
+  <strong>Optional: set a calendar nudge</strong>
+  <p>If you want a built-in reminder so the weekly check-in doesn't drift, ask Claude: "Use osascript to add a weekly recurring event to my Mac Calendar called 'Foundation check-in,' next [day] at [time], 30 minutes, with a 30-minute reminder." When the reminder fires, just open Claude Code and type /weekly-check-in.</p>
+</div>
 
 <div class="callout">
   <strong>A note on file length</strong>
-  <p>Claude reads your foundation files at the start of each conversation. If your files get long, that uses more of your conversation budget. The targets in the prompt above keep things lean. Sharpen your files weekly, don't pile on.</p>
+  <p>The skill above already tells Claude to keep your files lean as part of the weekly check-in. Here's why that matters: Claude reads your foundation files at the start of every conversation. Lean files mean sharper responses and more budget for the actual work. Sharpen your files weekly, don't pile on.</p>
 </div>
 
 
@@ -1610,6 +1681,7 @@ When the review is done, set me a recurring weekly reminder so I don't have to r
     <div class="step-body">
       <h4>Create a project for your automations</h4>
       <p>In your Doppler dashboard, create one project (something like <code>my-automations</code>). Inside, paste each API key with a clear name in all caps (e.g., META_ACCESS_TOKEN, GHL_API_KEY). Doppler keeps them encrypted.</p>
+      <p>Heads up: every tool you connect (GoHighLevel, Google Drive, Gmail, Meta, your CRM) has its <em>own</em> API key. They live in different places (often under settings or developer in each tool's dashboard). When you're not sure where to find one, just ask Claude in VS Code: "Where do I find my GHL API key?" or "Walk me through generating a Meta access token." Claude will guide you to the right settings page in that specific tool.</p>
     </div>
   </div>
   <div class="step">
@@ -1630,9 +1702,65 @@ When the review is done, set me a recurring weekly reminder so I don't have to r
 
 
 <!-- 12 -->
-<h2>12 / What's Next: Building Automations</h2>
+<h2>12 / Sync to Your Phone via GitHub (Optional)</h2>
 
-<p class="lead">This is where Claude goes from assistant to builder.</p>
+<p class="lead">Honest take: I don't use this often. Your real workspace lives on your computer in VS Code, and I'd rather you build the habit of working there. This section is for one-off moments away from your desk, or for people who genuinely think better on their phone.</p>
+
+<h3>When this is actually useful</h3>
+
+<p>The one use case where this really earns its keep: you're out (school pickup, walking, traveling) and you want to have a real conversation with Claude that still references your files. Maybe you're voice-dictating a strategy idea, or thinking through a content piece. Without the sync, the phone is just a generic chat. With it, Claude on your phone can read your foundation files and the project you're thinking about, just like on your computer. Then when you get back to your desk, you can pull that conversation over and keep going.</p>
+
+<p>If you're not the type to want this, skip the whole section. The phone app on its own (without the sync) is still fine for quick questions.</p>
+
+<h3>Setting it up</h3>
+
+<p style="font-size: 15px;">Your GitHub account from Section 02 is what makes this work. GitHub is the private cloud where your workspace lives, which is what both your computer and your phone read from.</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Let Claude push your workspace to a private GitHub repo</h4>
+      <p>Open Claude Code and say: "Connect my Claude folder to a new private GitHub repo. Walk me through installing anything I need (like the GitHub CLI), help me sign in, and then push my workspace up. Show me the plan first." Claude will turn your local folder into a synced repo and push it to a private spot only you can see.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Download the Claude app on your phone</h4>
+      <p>If you haven't already, install the Claude app on iOS or Android and sign in with the same Claude account you set up in Section 02.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Connect your repo from inside the app</h4>
+      <p>In the Claude app, open the <strong>Code</strong> section in the left sidebar (alongside Chats, Projects, and Artifacts). Tap it, start a new conversation, and tap <strong>Connect repositories</strong>. The app will hand off to GitHub for permission. Authorize the Claude GitHub App, choose your private repo, then come back to the Claude app. Your repo will appear in the picker. Select it.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Test the sync</h4>
+      <p>Add a note to a file in your workspace from your phone. When you open VS Code on your computer and pull the latest, you should see the change. Same the other way around.</p>
+    </div>
+  </div>
+</div>
+
+<div class="callout cacao">
+  <strong>Before your first push, lock down secrets</strong>
+  <p>Your workspace will eventually contain API keys, client notes, and voice files. Even private GitHub repos can leak.</p>
+  <p style="margin-top: 8px;"><strong>Do Section 11 first if you haven't.</strong> Doppler keeps your API keys out of any file that could end up in a repo. That's the most important defense.</p>
+  <p style="margin-top: 8px;">Then, before that first push, run this prompt in Claude Code (Plan Mode on):</p>
+  <div class="code-block compact" style="margin-top: 10px;"><span class="label">Workspace sensitivity scan</span>Scan my workspace for anything sensitive (API keys, passwords, client info, third-party content I don't have rights to share). Add anything risky to .gitignore so it stays on my computer and never goes up to GitHub. Show me the plan first.</div>
+  <p style="margin-top: 10px;">Keep this repo private forever. GitHub will warn you before flipping the switch to public. Listen to that warning.</p>
+</div>
+
+
+<!-- 13 -->
+<h2>13 / What's Next: Building Automations</h2>
+
+<p class="lead">You did it. The foundation is laid. Now this is where Claude goes from assistant to builder, and this is where the magic really starts.</p>
 
 <div class="callout">
   <strong>What this looks like in practice</strong>
@@ -1694,24 +1822,31 @@ When the review is done, set me a recurring weekly reminder so I don't have to r
   <p>Automation handles 90% of the grunt work. You still do the creative pass, the final review, the human judgment call. This isn't about replacing you. It's about freeing you up to do the work that actually requires you.</p>
 </div>
 
+<div class="callout">
+  <strong>Want to go deeper?</strong>
+  <p>One of my favorite people to listen to on AI is <strong>Ruben Hassid</strong>. He thinks about this stuff at a different level than most. His structured Claude guides (beginner to expert, all free) live at <a href="https://claude101.com" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">claude101.com</a>, and his Claude Code walkthrough is at <a href="https://ruben.substack.com/p/claude-code" target="_blank" rel="noopener noreferrer" style="color: var(--sky-deep); font-weight: 600;">ruben.substack.com/p/claude-code</a>.</p>
+</div>
+
 <div class="next-step">
   <div class="label">You're Set Up</div>
   <h3>Now go use it.</h3>
   <p>Your foundation is built. Your workspace is ready. Start with what you need most today, whether it's a piece of content, a strategy session, or just a conversation. The more you use it, the sharper it gets.</p>
-  <p>When you hit something that feels off, update your anti-ai-writing-style.md. When you find yourself repeating a task, come back to Section 12. When something breaks, check Section 09 first, then tell Claude to fix it.</p>
+  <p>When you hit something that feels off, update your anti-ai-writing-style.md. When you find yourself repeating a task, come back to Section 13. When something breaks, check Section 09 first, then tell Claude to fix it.</p>
   <p>This system grows with you. You've done the hard part.</p>
 </div>
 
-<div class="callout">
-  <strong>One last thing</strong>
-  <p>If you have any feedback on this guide, let me know. We're all learning together.</p>
-  <p style="margin-top: 8px;">I believe in you.</p>
-  <p style="margin-top: 8px;">🫶 Marina</p>
+<div class="callout honey">
+  <strong>A note from me to you</strong>
+  <p>You should be proud of yourself for making it to this point. Now that I've been working with Claude for a couple of weeks, I've come to realize this is going to be the single most game-changing skill and tool I've ever seen since starting my business. A lot of the people I've talked to in this world agree.</p>
+  <p style="margin-top: 10px;">Keep sticking with it. There are going to be times when it gets frustrating, but you're going to be on the leading edge. The people who don't learn this skill are going to be left behind. Continue to be the leader that learns, and then turn around and encourage others to learn it too.</p>
+  <p style="margin-top: 10px;">If you have any feedback on this guide, let me know. We're all learning together.</p>
+  <p style="margin-top: 10px;">I believe in you.</p>
+  <p style="margin-top: 10px;">🫶 Marina</p>
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
-  <div class="footer-meta">Setup Guide &middot; v1.0</div>
+  <div class="footer-meta">Setup Guide &middot; v1.1</div>
 </div>
 
 </body>
