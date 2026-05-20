@@ -1705,11 +1705,25 @@ Show me your plan for edits before making any changes. Then update one file at a
   </div>
 </div>
 
+<h3>Inspecting what's in Doppler safely</h3>
+
+<p>You'll sometimes want to confirm what's actually stored in Doppler (am I missing a key? did the right one save?). Two safe ways to check:</p>
+
+<ul style="margin: 0 0 12px 24px;">
+  <li><strong>List just the names</strong> (no values): ask Claude to run <code>doppler secrets --only-names</code>. You see what's there. Nothing is exposed.</li>
+  <li><strong>Verify one specific value</strong> when you genuinely need to: ask Claude to run <code>doppler run -- printenv KEY_NAME</code>, swapping in the actual secret name. That prints just that one value, scoped to that moment.</li>
+</ul>
+
+<div class="callout cacao">
+  <strong>Never let Claude run the bare <code>doppler secrets</code> command</strong>
+  <p>The bare <code>doppler secrets</code> command dumps every secret name <em>and</em> value to your terminal, which Claude reads as part of your chat. If Claude ever offers to run it to "show you what you have," push back. Tell it to use <code>--only-names</code> instead. If any values do end up in chat history, treat them as compromised and rotate the keys immediately in the source tool's dashboard, then paste the new ones into Doppler.</p>
+</div>
+
 <div class="callout cacao">
   <strong>Never paste API keys into chat (lock this in)</strong>
   <p>Not into Claude Code, not into ChatGPT, not into Slack, not anywhere. If a key ends up in a chat log, treat it as compromised and rotate it immediately: delete the old one in the tool's dashboard, generate a new one, paste the new one into Doppler.</p>
-  <p style="margin-top: 10px;">To make this a hard rule that Claude follows from now on, run this prompt in a fresh Claude Code conversation with Plan Mode on:</p>
-  <div class="code-block compact" style="margin-top: 10px;"><span class="label">API key safety prompt</span>Add a security rule to my CLAUDE.md. You should never ask me to paste API keys, passwords, access tokens, or any other credential into the chat panel. If you need a new key for a project, walk me through adding it to Doppler instead, and have my scripts read it from Doppler at runtime. If you ever notice a key has been pasted into chat history, remind me to rotate it. Show me the plan, then update CLAUDE.md.</div>
+  <p style="margin-top: 10px;">To make both of these a hard rule that Claude follows from now on, run this prompt in a fresh Claude Code conversation with Plan Mode on:</p>
+  <div class="code-block compact" style="margin-top: 10px;"><span class="label">API key safety prompt</span>Add a security rule to my CLAUDE.md. You should never ask me to paste API keys, passwords, access tokens, or any other credential into the chat panel. If you need a new key for a project, walk me through adding it to Doppler instead, and have my scripts read it from Doppler at runtime. You should also never run the bare `doppler secrets` command, since it dumps secret values into chat history. When you need to confirm what's in Doppler, use `doppler secrets --only-names`. If you ever notice a key has been pasted into chat history, remind me to rotate it. Show me the plan, then update CLAUDE.md.</div>
 </div>
 
 
